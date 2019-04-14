@@ -1,0 +1,18 @@
+body{
+	background: url('../images/prism.png');
+    text-align: center;
+    font-size: 18px;
+    line-height: 34px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.last-seconds{
+  color: rgb(228, 24, 24);
+}
+.option{
+  margin: 15px;
+}
+.btn-info {
+    color: #fff;
+    background-color: #4aaaa5;
+    border-color: #4aaaa5;
+}
