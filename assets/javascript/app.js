@@ -11,6 +11,7 @@ $(document).ready(function(){
     timer: 20,
     timerOn: false,
     timerId : '',
+    gifs: ["assets/images/paranoiaAgent.gif", "assets/images/gits.gif", "assets/images/gurrenLagann.gif", "assets/images/codeGeass.gif"],
     questions: {
       questionOne: 'What was the only tv show Satochi Kon directed?',
       questionTwo: 'Who composed the music for the hit show Ghost in the Shell: Stand Alone Complex?',
@@ -57,6 +58,7 @@ $(document).ready(function(){
       if(!trivia.timerOn){
         trivia.timerId = setInterval(trivia.timerRunning, 1000);
       }
+
       // gets all the questions then indexes the current questions
       var questionContent = Object.values(trivia.questions)[trivia.currentSet];
       $('#question').text(questionContent);
@@ -78,7 +80,7 @@ $(document).ready(function(){
             $('#timer').addClass('last-seconds');
           }
       }
-      // the time has run out and increment unanswered, run result
+      // When time is up, unanswered++ and display proper answer.
       else if(trivia.timer === -1){
         trivia.unanswered++;
         trivia.result = false;
@@ -104,16 +106,24 @@ $(document).ready(function(){
     // click functions
     guessChecker : function() {
       // timer ID for gameResult setTimeout
-      var resultId;
+      var resultId,
       // the answer to the current question being asked
-      var currentAnswer = Object.values(trivia.answers)[trivia.currentSet];
+          currentAnswer = Object.values(trivia.answers)[trivia.currentSet]
       //correct++ if right answer is chosen
       if($(this).text() === currentAnswer){
         // turn button green for correct
         $(this).addClass('btn-success').removeClass('btn-info');
         trivia.correct++;
         clearInterval(trivia.timerId);
-        resultId = setTimeout(trivia.guessResult, 1000);
+        $.each(trivia.questions,function(key){
+          if(key === 'questionOne') {
+          function displayImage() {
+            $("#gifs").html("<img src=" + (trivia.gifs)[trivia.currentSet] + " width='400px'>");
+          }
+          setTimeout(displayImage, 1000)
+          }       
+         })
+        resultId = setTimeout(trivia.guessResult, 1000); 
         $('#results').html('<h3>Correct Answer!</h3>');
       }
       // else incorrect++
@@ -122,8 +132,16 @@ $(document).ready(function(){
         $(this).addClass('btn-danger').removeClass('btn-info');
         trivia.incorrect++;
         clearInterval(trivia.timerId);
-        resultId = setTimeout(trivia.guessResult, 2000);
+        resultId = setTimeout(trivia.guessResult, 1000);
         $('#results').html('<h3>Better luck next time! The right answer was '+ currentAnswer +'</h3>');
+        $.each(trivia.questions,function(key){
+        if(key === 'questionOne') {
+        function displayImage() {
+          $("#results").html("<img src=" + (trivia.gifs)[trivia.currentSet] + " width='400px'>");
+        }
+        setTimeout(displayImage, 1000)
+        }       
+       })
       }
     },
     // function replaces old questions with new ones
@@ -134,7 +152,5 @@ $(document).ready(function(){
       trivia.nextQuestion();
     }
   }
-
-//   made with the help of developer.mozilla, geeksforgeeks, bad stack overflow responses. And mulitple tutorials on reddit/youtube.
-// Didn't have time to get gifs working on time. Should be easy enough. Just do something such as $('#results') and then use a jquery
-// selector to display the gifs.
+//   made with the help of developer.mozilla, geeksforgeeks, bad stack overflow responses, and mulitple tutorials on reddit/youtube.
+// Didn't have time to get gifs working on time.
