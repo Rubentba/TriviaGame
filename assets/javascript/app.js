@@ -115,16 +115,8 @@ $(document).ready(function(){
         $(this).addClass('btn-success').removeClass('btn-info');
         trivia.correct++;
         clearInterval(trivia.timerId);
-        $.each(trivia.questions,function(key){
-          if(key === 'questionOne') {
-          function displayImage() {
-            $("#gifs").html("<img src=" + (trivia.gifs)[trivia.currentSet] + " width='400px'>");
-          }
-          setTimeout(displayImage, 1000)
-          }       
-         })
-        resultId = setTimeout(trivia.guessResult, 1000); 
-        $('#results').html('<h3>Correct Answer!</h3>');
+      resultId = setTimeout(trivia.guessResult, 3000); 
+      $('#results').html('<h3>Correct!</h3>').append("<img src=" + (trivia.gifs)[trivia.currentSet] + " width='400px'>");
       }
       // else incorrect++
       else{
@@ -132,16 +124,8 @@ $(document).ready(function(){
         $(this).addClass('btn-danger').removeClass('btn-info');
         trivia.incorrect++;
         clearInterval(trivia.timerId);
-        resultId = setTimeout(trivia.guessResult, 1000);
-        $('#results').html('<h3>Better luck next time! The right answer was '+ currentAnswer +'</h3>');
-        $.each(trivia.questions,function(key){
-        if(key === 'questionOne') {
-        function displayImage() {
-          $("#results").html("<img src=" + (trivia.gifs)[trivia.currentSet] + " width='400px'>");
-        }
-        setTimeout(displayImage, 1000)
-        }       
-       })
+        resultId = setTimeout(trivia.guessResult, 3000);
+        $('#results').html('<h3>Womp! The right answer was '+ currentAnswer + '.' + '</h3>').append("<img src=" + (trivia.gifs)[trivia.currentSet] + " width='400px'>");
       }
     },
     // function replaces old questions with new ones
@@ -149,8 +133,8 @@ $(document).ready(function(){
       trivia.currentSet++;
       $('.option').remove();
       $('#results h3').remove();
+      $('#results img').remove();
       trivia.nextQuestion();
     }
   }
-//   made with the help of developer.mozilla, geeksforgeeks, bad stack overflow responses, and mulitple tutorials on reddit/youtube.
-// Didn't have time to get gifs working on time.
+// Made with the help of developer.mozilla, geeksforgeeks, Overflow responses, and mulitple tutorials on Reddit/Youtube.
