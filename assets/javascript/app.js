@@ -1,8 +1,10 @@
+// "Initial Screen"
 $(document).ready(function(){
     $("#remaining-time").hide();
     $("#start").on('click', trivia.startGame);
     $(document).on('click' , '.option', trivia.guessChecker);
   })
+  // The Game
   var trivia = {
     correct: 0,
     incorrect: 0,
@@ -13,10 +15,10 @@ $(document).ready(function(){
     timerId : '',
     gifs: ["assets/images/paranoiaAgent.gif", "assets/images/gits.gif", "assets/images/gurrenLagann.gif", "assets/images/codeGeass.gif"],
     questions: {
-      questionOne: 'What was the only tv show Satochi Kon directed?',
+      questionOne: 'What was the only TV show directed by Satochi Kon?',
       questionTwo: 'Who composed the music for the hit show Ghost in the Shell: Stand Alone Complex?',
       questionThree: 'What studio was behind the show Tengen Toppa Gurren Lagann?',
-      questionFour: 'What original series came out on 2007 by stuido Sunrise?'
+      questionFour: 'What original series came out on 2007 by Stuido Sunrise?'
     },
     options: {
       questionOne: ['Eureka Seven', 'Death Note', 'Princess Tutu', 'Paranoia Agent'],
@@ -38,23 +40,23 @@ $(document).ready(function(){
       trivia.incorrect = 0
       trivia.unanswered = 0
       clearInterval(trivia.timerId)
-      // show game section
+      // Shows game section.
       $('#game').show()
       $('#results').html('')
       $('#timer').text(trivia.timer)
-      // remove start button
+      // Removes start button.
       $('#start').hide()
       $('#remaining-time').show()
-      // ask first question
+      // Asks first question.
       trivia.nextQuestion()
     },
-    //function that will display next question when previous question has been answered 
+    //Function that will display next question when previous question has been answered. 
     nextQuestion: function(){
-      // set timer to 10 seconds each question. 15 or 20 seconds proved to be too long.
+      // Set timer to 10 seconds. 15 or 20 seconds proved to be too long.
       trivia.timer = 10;
        $('#timer').removeClass('last-seconds');
       $('#timer').text(trivia.timer);
-      // stops timer from speeding up
+      // Stops timer from speeding up.
       if(!trivia.timerOn){
         trivia.timerId = setInterval(trivia.timerRunning, 1000);
       }
@@ -70,9 +72,9 @@ $(document).ready(function(){
         $('#options').append($('<button class="option btn btn-info btn-lg">'+options+'</button>'));
       })
     },
-    //Decreases counter and gives unaswered++ if no answer is chosen
+    //Decreases counter and gives unaswered++ if no answer is chosen.
     timerRunning : function(){
-      // if timer still has time left and there are still questions left to ask
+      // Timer goes down and adds class last second to timer at three seconds left.
       if(trivia.timer > -1 && trivia.currentSet < Object.keys(trivia.questions).length){
         $('#timer').text(trivia.timer);
         trivia.timer--;
@@ -86,9 +88,9 @@ $(document).ready(function(){
         trivia.result = false;
         clearInterval(trivia.timerId);
         resultId = setTimeout(trivia.guessResult, 1000);
-        $('#results').html('<h3>Out of time! The answer was '+ Object.values(trivia.answers)[trivia.currentSet] +'</h3>');
+        $('#results').html('<h3>Out of time! The answer was '+ Object.values(trivia.answers)[trivia.currentSet] + '.' +'</h3>');
       }
-      // if all the questions have been shown end the game, show results
+      // If all the questions have been shown end the game, show results.
       else if(trivia.currentSet === Object.keys(trivia.questions).length){
         
         // Displays results
@@ -97,19 +99,19 @@ $(document).ready(function(){
           '<p>Incorrect: '+ trivia.incorrect +'</p>'+
           '<p>Unaswered: '+ trivia.unanswered +'</p>'+
           '<p>Please play again!</p>');
-        // hide game sction
+        // Hide game sction.
         $('#game').hide();
-        // show start button to begin a new game
+        // Show start button to begin a new game.
         $('#start').show();
       }
     },
     // click functions
     guessChecker : function() {
-      // timer ID for gameResult setTimeout
+      // timer ID for gameResult setTimeout.
       var resultId,
-      // the answer to the current question being asked
+      // The answer to the current question being asked.
           currentAnswer = Object.values(trivia.answers)[trivia.currentSet]
-      //correct++ if right answer is chosen
+      // Correct++ if right answer is chosen.
       if($(this).text() === currentAnswer){
         // turn button green for correct
         $(this).addClass('btn-success').removeClass('btn-info');
@@ -118,7 +120,7 @@ $(document).ready(function(){
       resultId = setTimeout(trivia.guessResult, 3000); 
       $('#results').html('<h3>Correct!</h3>').append("<img src=" + (trivia.gifs)[trivia.currentSet] + " width='400px'>");
       }
-      // else incorrect++
+      // Else incorrect++.
       else{
         // turn button clicked red for incorrect
         $(this).addClass('btn-danger').removeClass('btn-info');
@@ -128,7 +130,7 @@ $(document).ready(function(){
         $('#results').html('<h3>Womp! The right answer was '+ currentAnswer + '.' + '</h3>').append("<img src=" + (trivia.gifs)[trivia.currentSet] + " width='400px'>");
       }
     },
-    // function replaces old questions with new ones
+    // Function replaces old questions with new ones and clears results.
     guessResult : function(){
       trivia.currentSet++;
       $('.option').remove();
