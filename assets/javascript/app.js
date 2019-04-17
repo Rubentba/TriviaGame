@@ -2,8 +2,9 @@
 $(document).ready(function(){
     $("#remaining-time").hide();
     $("#start").on('click', trivia.startGame);
-    $(document).on('click' , '.option', trivia.guessChecker);
+    $("#options").on('click' , '.option', trivia.guessChecker);
   })
+  var clicked = false;
   // The Game
   var trivia = {
     correct: 0,
@@ -74,6 +75,7 @@ $(document).ready(function(){
     },
     //Decreases counter and gives unaswered++ if no answer is chosen.
     timerRunning : function(){
+      
       // Timer goes down and adds class last second to timer at three seconds left.
       if(trivia.timer > -1 && trivia.currentSet < Object.keys(trivia.questions).length){
         $('#timer').text(trivia.timer);
@@ -107,6 +109,8 @@ $(document).ready(function(){
     },
     // click functions
     guessChecker : function() {
+      if (clicked === false) {
+        clicked = true
       // timer ID for gameResult setTimeout.
       var resultId,
       // The answer to the current question being asked.
@@ -129,6 +133,8 @@ $(document).ready(function(){
         resultId = setTimeout(trivia.guessResult, 3000);
         $('#results').html('<h3>Womp! The right answer was '+ currentAnswer + '.' + '</h3>').append("<img src=" + (trivia.gifs)[trivia.currentSet] + " width='400px'>");
       }
+      }
+
     },
     // Function replaces old questions with new ones and clears results.
     guessResult : function(){
@@ -136,6 +142,7 @@ $(document).ready(function(){
       $('.option').remove();
       $('#results h3').remove();
       $('#results img').remove();
+      clicked = false;
       trivia.nextQuestion();
     }
   }
