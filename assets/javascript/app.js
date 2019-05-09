@@ -12,13 +12,13 @@ var question = [
 ];
 
 var timer,
-    correct,
-    incorrect,
+    correct = 0,
+    incorrect = 0,
     counter = 60;
 
-$('button').on("click", function(){
+$('#startBtn').on("click", function(){
 
-  $('button').remove();
+  $('#startBtn').remove();
 
   timer = setInterval(countdown,1000);
 
@@ -29,16 +29,26 @@ $('button').on("click", function(){
     $('#questionArea').append('<h2>' + question[i].question + '</h2>');
     
     for (let j = 0; j < question[i].answerChoices.length; j++){
-      $('#questionArea').append('<input type="radio" name=' + question[i].answerChoices[j] + '>' + question[i].answerChoices[j] + '<br>');
+      $('#questionArea').append('<input type="radio" name=' + question[i].answerChoices[j] + '>' +  question[i].answerChoices[j] + '<br>');
     }
   }
-})
+
+  $("#questionArea").append("<button id='doneBtn'>Done</button>")
+});
+
+$('#doneBtn').on("click", function(){
+  // for (let i = 0; i < question[i].answer.length; i++){
+  //     if () {
+  //       correct++;
+  //     } else {
+  //       incorrect++;
+  //     }
+  // }
+});
 
 function countdown(){
   counter--;
-  $("#countdownNumber").html(counter);
+  $('#countdownNumber').html(counter);
+  if (counter === 0) {
+  }
 };
-
-// for (let k = 0; k < question[i].answer.length; k++){
-      
-// }
