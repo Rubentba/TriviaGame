@@ -29,26 +29,37 @@ $('#startBtn').on("click", function(){
     $('#questionArea').append('<h2>' + question[i].question + '</h2>');
     
     for (let j = 0; j < question[i].answerChoices.length; j++){
-      $('#questionArea').append('<input type="radio" name=' + question[i].answerChoices[j] + '>' +  question[i].answerChoices[j] + '<br>');
+      $('#questionArea').append('<input type="radio" name="option' + i + '" value="' + question[i].answerChoices[j] + '">' +  question[i].answerChoices[j]  + '<br>');
     }
   }
 
   $("#questionArea").append("<button id='doneBtn'>Done</button>")
-});
+})
 
-$('#doneBtn').on("click", function(){
-  // for (let i = 0; i < question[i].answer.length; i++){
-  //     if () {
-  //       correct++;
-  //     } else {
-  //       incorrect++;
-  //     }
-  // }
+$(document).on("click", "#doneBtn", function(){
+
+  var inputs = $("input:checked");
+
+  console.log(inputs);
+
+  for (let i = 0; i < inputs.length; i++){
+
+      if ($(inputs[i]).val() === question[i].answer) {
+
+        correct++;
+      } else {
+        incorrect++;
+      }
+  }
+  console.log(incorrect)
+  console.log(correct)
 });
 
 function countdown(){
   counter--;
   $('#countdownNumber').html(counter);
   if (counter === 0) {
+    clearInterval(counter);
   }
+  
 };
