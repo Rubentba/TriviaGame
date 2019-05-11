@@ -17,12 +17,12 @@ var question = [
   {
     question:"What is the name of complication where the entire escapement is housed in a rotating cage, and the whole assembly is constantly moving?",
     answerChoices:["Chronograph","Date","Moon Phase","Tourbillon"],
-    answer:"Tourbillon"
+    answer:"Automatic"
   },
   {
     question:"Where is the annual watch trade show, Baselworld, locted?",
     answerChoices:["Switzerland","Germany","Japan","France"],
-    answer:"Switzerland"
+    answer:"Automatic"
   }
 ];
 
@@ -60,8 +60,8 @@ function countdown(){
 
 
 function endGame(){
-  $('#questionArea').remove();
-  $('.jumbotron').html("<h2>All Done!</h2>")
+   $('#questionArea').remove();
+  $('#end').html("<h2>All Done!</h2>")
                  .append("<h3>Correct Answers: " + correct + "</h3>" + "<h3>Incorrect Answers: " + incorrect + "</h3>");
 }
 
@@ -87,7 +87,6 @@ function doneBtn(){
 
 function startBtn(){
     
-  $('.fullscreen-bg').remove();
   $('#gameTitle').remove();
   $('#startBtn').remove();
 

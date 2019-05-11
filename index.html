@@ -12,16 +12,18 @@
 </head>
 
 <body>
+    <div class="fullscreen-bg">
+            <video loop muted autoplay poster="img/videoframe.jpg" class="fullscreen-bg__video">
+                <source src="assets/images/background.webm" type="video/webm">
+            </video>
+    </div>
 
     <div class="jumbotron">
-        <div class="fullscreen-bg">
-                <video loop muted autoplay poster="img/videoframe.jpg" class="fullscreen-bg__video">
-                    <source src="assets/images/background.webm" type="video/webm">
-                </video>
-        </div>
-
+        
         <div class="row">
-            <div class="col-md-12" style="padding: 50px; text-align: center">  
+               
+            <div id="end" class="col-md-12" style="padding: 50px; text-align: center">  
+               
                 <h1 id="gameTitle">Wrist Watch Trivia Game!</h1>
                 <button id="startBtn" style="margin-top: 50px;">Start</button>
             </div>
